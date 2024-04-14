@@ -174,6 +174,7 @@ void enter_supervisor_mode(void (*fn)(uintptr_t), uintptr_t arg0, uintptr_t arg1
 
   // Set up a PMP to permit access to all of memory.
   // Ignore the illegal-instruction trap if PMPs aren't supported.
+  
   uintptr_t pmpc = PMP_NAPOT | PMP_R | PMP_W | PMP_X;
   asm volatile ("la t0, 1f\n\t"
                 "csrrw t0, mtvec, t0\n\t"
@@ -188,6 +189,7 @@ void enter_supervisor_mode(void (*fn)(uintptr_t), uintptr_t arg0, uintptr_t arg1
   mstatus = INSERT_FIELD(mstatus, MSTATUS_MPIE, 0);
   write_csr(mstatus, mstatus);
   write_csr(mscratch, MACHINE_STACK_TOP() - MENTRY_FRAME_SIZE);
+  
   write_csr(mepc, fn);
 
   register uintptr_t a0 asm ("a0") = arg0;
