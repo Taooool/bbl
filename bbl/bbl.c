@@ -36,7 +36,7 @@ static void filter_dtb(uintptr_t source)
 
 void boot_other_hart(uintptr_t unused __attribute__((unused)))
 {
-  printm("we are in boot_other_hart\n");
+  // printm("we are in boot_other_hart\n");
   const void* entry;
   do {
     entry = entry_point;
@@ -59,7 +59,7 @@ void boot_other_hart(uintptr_t unused __attribute__((unused)))
 
 void boot_loader(uintptr_t dtb)
 {
-  printm("we are in boot_loader\n");
+  // printm("we are in boot_loader\n");
   extern char _payload_start;
   filter_dtb(dtb);
 #ifdef PK_ENABLE_LOGO
